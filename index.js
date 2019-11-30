@@ -5,7 +5,7 @@ const { connectDb, WeatherMoment } = require('./db');
 const { cron, startCron } = require('./cron');
 const moment = require('moment');
 
-const PORT = 3000;
+const PORT = 3001;
 
 const app = express();
 

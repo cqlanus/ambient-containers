@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
       "server": "node api/index.js",
-      "clean": "docker-compose down && docker rmi -f weather_app",
-      "restart": "npm run clean && docker-compose up"
+      "clean": "sudo docker-compose down && sudo docker rmi -f weather_app",
+      "restart": "npm run clean && sudo docker-compose up"
   },
   "author": "",
   "license": "ISC",
