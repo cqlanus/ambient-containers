@@ -13,7 +13,8 @@ const app = express();
 app.use(bodyParser.json());
 
 
-cron.getWeather();
+// cron.getWeather();
+startCron();
 
 app.get('/', async (req, res, next) => {
     try {
