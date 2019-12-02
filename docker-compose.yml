@@ -6,10 +6,19 @@ services:
     env_file:
       - variables.env
     ports:
-      - "3001:3001"
+      - 3001:3001
     links:
-      - mongo
-  mongo:
-    image: mongo:3.1
+      - postgres
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRESQL_DATABASE: weather
+    volumes:
+      - data-volume:/var/lib/db
     ports:
-      - "27017:27017"
+      - 5432:5432
+volumes:
+  data-volume:
+    driver: local

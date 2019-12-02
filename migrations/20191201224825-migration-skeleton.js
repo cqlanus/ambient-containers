@@ -1,16 +1,7 @@
 const { Sequelize, Model, DataTypes } = require('sequelize');
-const url = 'postgres://postgres:postgres@postgres:5432/postgres';
-
-const connectDb = () => new Sequelize(url);
-
-const sequelize = connectDb();
-
-class WeatherMoment extends Model {
-};
-
-const initializeTable = () => {
-    try {
-        WeatherMoment.init({
+module.exports = {
+    up: (queryInterface, Sequelize) => {
+        return queryInterface.createTable('WeatherMoment', {
             id: {
                 type: Sequelize.BIGINT,
                 primaryKey: true,
@@ -44,18 +35,9 @@ const initializeTable = () => {
             dewPointin: Sequelize.FLOAT,
             lastRain: Sequelize.DATE,
             date: Sequelize.DATE,
-        }, {
-            sequelize,
-            modelName: 'WeatherMoment',
-            freezeTableName: true,
         });
-    } catch (err) {
-        console.log({err});
+    },
+    down: (queryInterface, Sequelize) => {
+        return queryInterface.dropTable('WeatherMoment');
     }
-};
-
-initializeTable();
-module.exports = {
-    connectDb,
-    WeatherMoment,
 };

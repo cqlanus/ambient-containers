@@ -4,10 +4,6 @@ const { WeatherMoment } = require('../db');
 
 class Crono {
 
-    // DEVICE_ID = process.env.DEVICE_ID
-    // API_KEY = process.env.API_KEY
-    // APP_KEY = process.env.APP_KEY
-
     constructor() {
         console.log('running cron class');
 
@@ -22,10 +18,14 @@ class Crono {
         const response = await fetch(url);
         const results = await response.json();
         console.log('got weather');
-        const formatted = results.map(r => new WeatherMoment(r));
+        const formatted = results.map(r => ({
+            ...r,
+            lastRain: new Date(r.lastRain),
+            date: new Date(r.date),
+        }));
         console.log({ results: formatted[0] });
         if (Array.isArray(formatted)) {
-            const mongoResult = await WeatherMoment.insertMany(formatted);
+            const mongoResult = await WeatherMoment.bulkCreate(formatted);
             console.log({insertMany: true});
         }
     }
